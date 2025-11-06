@@ -4,3 +4,44 @@ metadata:
   name: backend-gateway-configmap
 data:
   application-dev.yml: |
+    server:
+      port: 8080
+
+    spring:
+      application:
+        name: backend-gateway
+
+      cloud:
+        gateway:
+          server:
+            webmvc:
+              routes:
+                - id: backend-member
+                  uri: http://backend-member:8080
+                  predicates:
+                    - Path=/api/member/**
+                    -
+                - id: backend-sight
+                  uri: http://backend-sight:8080
+                  predicates:
+                    - Path=/api/sight/**
+    
+                - id: backend-story
+                  uri: http://backend-story:8080
+                  predicates:
+                    - Path=/api/story/**
+    
+                - id: backend-core
+                  uri: http://backend-core:8080
+                  predicates:
+                    - Path=/api/core/**
+    
+                - id: backend-route
+                  uri: http://backend-route:8080
+                  predicates:
+                    - Path=/api/route/**
+    
+                - id: backend-search
+                  uri: http://backend-search:8080
+                  predicates:
+                    - Path=/api/search/**
