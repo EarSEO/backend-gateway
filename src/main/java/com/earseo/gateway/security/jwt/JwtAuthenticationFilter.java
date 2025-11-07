@@ -1,4 +1,4 @@
-package com.earseo.backendgateway.security.jwt;
+package com.earseo.gateway.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;

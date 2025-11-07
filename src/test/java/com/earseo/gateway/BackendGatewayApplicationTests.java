@@ -1,4 +1,4 @@
-package com.earseo.backendgateway;
+package com.earseo.gateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

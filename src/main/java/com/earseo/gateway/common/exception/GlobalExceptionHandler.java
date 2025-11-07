@@ -1,6 +1,6 @@
-package com.earseo.backendgateway.common.exception;
+package com.earseo.gateway.common.exception;
 
-import com.earseo.backendgateway.common.BaseResponse;
+import com.earseo.gateway.common.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;

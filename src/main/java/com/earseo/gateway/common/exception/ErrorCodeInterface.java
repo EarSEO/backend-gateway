@@ -1,4 +1,4 @@
-package com.earseo.backendgateway.common.exception;
+package com.earseo.gateway.common.exception;
 
 public interface ErrorCodeInterface {
     ErrorCode getErrorCode();

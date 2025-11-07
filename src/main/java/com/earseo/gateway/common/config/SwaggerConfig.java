@@ -1,4 +1,4 @@
-package com.earseo.backendgateway.common.config;
+package com.earseo.gateway.common.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

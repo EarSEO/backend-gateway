@@ -1,8 +1,8 @@
-package com.earseo.backendgateway.common.config;
+package com.earseo.gateway.common.config;
 
-import com.earseo.backendgateway.security.jwt.CustomAccessDeniedHandler;
-import com.earseo.backendgateway.security.jwt.CustomAuthenticationEntryPoint;
-import com.earseo.backendgateway.security.jwt.JwtAuthenticationFilter;
+import com.earseo.gateway.security.jwt.CustomAccessDeniedHandler;
+import com.earseo.gateway.security.jwt.CustomAuthenticationEntryPoint;
+import com.earseo.gateway.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

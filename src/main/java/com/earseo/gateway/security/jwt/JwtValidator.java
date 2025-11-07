@@ -1,7 +1,7 @@
-package com.earseo.backendgateway.security.jwt;
+package com.earseo.gateway.security.jwt;
 
-import com.earseo.backendgateway.common.exception.AuthError;
-import com.earseo.backendgateway.common.exception.BaseException;
+import com.earseo.gateway.common.exception.AuthError;
+import com.earseo.gateway.common.exception.BaseException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;

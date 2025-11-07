@@ -1,4 +1,4 @@
-package com.earseo.backendgateway.security.jwt;
+package com.earseo.gateway.security.jwt;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

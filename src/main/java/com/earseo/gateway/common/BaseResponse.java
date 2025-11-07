@@ -1,4 +1,4 @@
-package com.earseo.backendgateway.common;
+package com.earseo.gateway.common;
 
 public record BaseResponse<T>(
         String status,

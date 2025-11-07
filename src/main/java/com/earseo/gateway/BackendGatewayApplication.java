@@ -1,4 +1,4 @@
-package com.earseo.backendgateway;
+package com.earseo.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
