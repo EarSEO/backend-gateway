@@ -45,3 +45,12 @@ data:
                   uri: http://backend-search:8080
                   predicates:
                     - Path=/api/search/**, /api/user/search/**, /api/admin/search/**
+                    
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: prometheus,health,info
+      metrics:
+        tags:
+          application: ${spring.application.name}
