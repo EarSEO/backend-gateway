@@ -44,12 +44,7 @@ jwt:
   access_secret: AADfaskllew3skllew32dsfasdTG764G2dsfasdTG764GDfaskllew3skllew32dsfasdTG764G2ddskllew32dsfasdTG764G
 
 management:
-  endpoints:
-    web:
-      exposure:
-        include: prometheus,health,info
   metrics:
-    tags:
-      application: ${spring.application.name}
+    enabled: false
   tracing:
     enabled: false
