@@ -1,5 +1,67 @@
 spring:
   config:
     import:
-      - file:/etc/config/application-config.yaml
-      - file:/etc/secret/application-secret.yaml
+      - optional:file:/etc/secret/application-secret.yaml
+
+  application:
+    name: backend-gateway
+
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            - id: backend-member
+              uri: http://backend-member:8080
+              predicates:
+                - Path=/api/member/**, /api/user/member/**, /api/admin/member/**
+
+            - id: backend-sight
+              uri: http://backend-sight:8080
+              predicates:
+                - Path=/api/sight/**, /api/user/sight/**, /api/admin/sight/**
+
+            - id: backend-story
+              uri: http://backend-story:8080
+              predicates:
+                - Path=/api/story/**, /api/user/story/**, /api/admin/story/**
+
+            - id: backend-core
+              uri: http://backend-core:8080
+              predicates:
+                - Path=/api/core/**, /api/user/core/**, /api/admin/core/**
+
+            - id: backend-route
+              uri: http://backend-route:8080
+              predicates:
+                - Path=/api/route/**, /api/user/route/**, /api/admin/route/**
+
+            - id: backend-search
+              uri: http://backend-search:8080
+              predicates:
+                - Path=/api/search/**, /api/user/search/**, /api/admin/search/**
+otel:
+  propagators:
+    - tracecontext
+    - b3
+    - baggage
+management:
+  otlp:
+    tracing:
+      endpoint: http://${NODE_IP:localhost}:4317
+      transport: grpc
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  tracing:
+    sampling:
+      probability: 1.0
+    enabled: true

@@ -43,6 +43,9 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
     testImplementation 'org.assertj:assertj-core:3.25.3'
+
+    implementation 'io.micrometer:micrometer-tracing-bridge-otel' // 트레이싱
+    implementation 'io.opentelemetry:opentelemetry-exporter-otlp' // otel exporter
 }
 
 dependencyManagement {
