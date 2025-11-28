@@ -41,6 +41,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/user/**").hasAnyAuthority("USER", "ADMIN")
                         .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(exceptionHandler -> exceptionHandler
                         .authenticationEntryPoint(customAuthenticationEntryPoint)
