@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<BaseResponse<String>> handleAuthenticationException(AuthenticationException e) {
-        log.warn("리소스 없음: ", e);
+        log.warn("UNAUTHORIZED: ", e);
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(BaseResponse.onFailure("UNAUTHORIZED", "401", null));
@@ -56,7 +56,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<BaseResponse<String>> handleAccessDeniedException(AccessDeniedException e) {
-        log.warn("리소스 없음: ", e);
+        log.warn("FORBIDDEN: ", e);
         return ResponseEntity
                 .status(HttpStatus.FORBIDDEN)
                 .body(BaseResponse.onFailure("FORBIDDEN", "403", null));
