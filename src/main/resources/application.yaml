@@ -1,3 +1,34 @@
 spring:
   profiles:
     default: local
+  application:
+    name: backend-gateway
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            - id: backend-member
+              uri: ${MEMBER_URI}
+              predicates:
+                - Path=/api/member/**, /api/user/member/**, /api/admin/member/**
+
+            - id: backend-sight
+              uri: ${SIGHT_URI}
+              predicates:
+                - Path=/api/sight/**, /api/user/sight/**, /api/admin/sight/**
+
+            - id: backend-story
+              uri: ${STORY_URI}
+              predicates:
+                - Path=/api/story/**, /api/user/story/**, /api/admin/story/**
+
+            - id: backend-core
+              uri: ${CORE_URI}
+              predicates:
+                - Path=/api/core/**, /api/user/core/**, /api/admin/core/**
+
+            - id: backend-route
+              uri: ${ROUTE_URI}
+              predicates:
+                - Path=/api/route/**, /api/user/route/**, /api/admin/route/**

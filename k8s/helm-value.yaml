@@ -1,2 +1,8 @@
 image:
   tag: v0.1.1
+env:
+  MEMBER_URI: "http://backend-member:8080"
+  SIGHT_URI: "http://backend-sight:8080"
+  STORY_URI: "http://backend-story:8080"
+  CORE_URI: "http://backend-core:8080"
+  ROUTE_URI: "http://backend-route:8080"
