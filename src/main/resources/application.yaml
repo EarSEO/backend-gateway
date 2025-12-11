@@ -9,53 +9,53 @@ spring:
         webmvc:
           routes:
             - id: backend-member
-              uri: ${MEMBER_URI}
+              uri: ${MEMBER_URI:http://example.com}
               predicates:
-                - Path=${MEMBER_API_PATH}
+                - Path=${MEMBER_API_PATH:/member}
 
             - id: backend-sight
-              uri: ${SIGHT_URI}
+              uri: ${SIGHT_URI:http://example.com}
               predicates:
-                - Path=${SIGHT_API_PATH}
+                - Path=${SIGHT_API_PATH:/sight}
 
             - id: backend-story
-              uri: ${STORY_URI}
+              uri: ${STORY_URI:http://example.com}
               predicates:
-                - Path=${STORY_API_PATH}
+                - Path=${STORY_API_PATH:/story}
 
             - id: backend-core
-              uri: ${CORE_URI}
+              uri: ${CORE_URI:http://example.com}
               predicates:
-                - Path=${CORE_API_PATH}
+                - Path=${CORE_API_PATH:/core}
 
             - id: backend-route
-              uri: ${ROUTE_URI}
+              uri: ${ROUTE_URI:http://example.com}
               predicates:
-                - Path=${ROUTE_API_PATH}
+                - Path=${ROUTE_API_PATH:/route}
 
             - id: member-openapi
-              uri: ${MEMBER_URI}
+              uri: ${MEMBER_URI:http://example.com}
               predicates:
                 - Path=/member/api-docs
               filters:
                 - RewritePath=/member/api-docs, /api-docs
 
             - id: sight-openapi
-              uri: ${SIGHT_URI}
+              uri: ${SIGHT_URI:http://example.com}
               predicates:
                 - Path=/sight/api-docs
               filters:
                 - RewritePath=/sight/api-docs, /api-docs
 
             - id: story-openapi
-              uri: ${STORY_URI}
+              uri: ${STORY_URI:http://example.com}
               predicates:
                 - Path=/story/api-docs
               filters:
                 - RewritePath=/story/api-docs, /api-docs
 
             - id: core-openapi
-              uri: ${CORE_URI}
+              uri: ${CORE_URI:http://example.com}
               predicates:
                 - Path=/core/api-docs
               filters:
@@ -65,6 +65,7 @@ springdoc:
     enabled: true
     path: /api-docs
   swagger-ui:
+    use-root-path: true
     enabled: true
     path: /swagger-ui.html
     display-request-duration: true
@@ -83,4 +84,4 @@ springdoc:
         url: /route/api-docs
 security:
   path:
-    public: ${PUBLIC_PATHS}
+    public: ${PUBLIC_PATHS:publicpaths}

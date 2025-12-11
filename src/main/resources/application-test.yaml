@@ -2,7 +2,7 @@ server:
   port: 8080
 
 jwt:
-  access_secret: ${JWT_SECRET}
+  access_secret: ${JWT_SECRET:jwtsecretkeyjwtsecretkeyjwtsecretkeyjwtsecretkeyjwtsecretkeyjwtsecretkey}
 
 management:
   metrics:
