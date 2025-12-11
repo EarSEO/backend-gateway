@@ -4,6 +4,7 @@ import com.earseo.gateway.security.jwt.CustomAccessDeniedHandler;
 import com.earseo.gateway.security.jwt.CustomAuthenticationEntryPoint;
 import com.earseo.gateway.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,6 +24,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
+    @Value("${security.path.public}")
+    private String publicPaths;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
@@ -40,8 +43,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/api/user/**").hasAnyAuthority("USER", "ADMIN")
                         .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
-                        .requestMatchers("/api/**").permitAll()
-                        .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers(this.getPublicPaths()).permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(exceptionHandler -> exceptionHandler
                         .authenticationEntryPoint(customAuthenticationEntryPoint)
@@ -64,5 +66,9 @@ public class WebSecurityConfig {
         source.registerCorsConfiguration("/**", config);
 
         return source;
+    }
+
+    private String[] getPublicPaths() {
+        return publicPaths.split(",");
     }
 }

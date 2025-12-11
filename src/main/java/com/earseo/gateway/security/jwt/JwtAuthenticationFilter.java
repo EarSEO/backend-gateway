@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequestWrapper;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,6 +25,8 @@ import java.util.*;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+    @Value("${security.path.public}")
+    private String publicPaths;
     private final JwtValidator jwtValidator;
     private final HandlerExceptionResolver resolver;
     private static final AntPathMatcher pathMatcher = new AntPathMatcher();
@@ -69,12 +72,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+    protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
+        String[] paths = publicPaths.split(",");
 
-        return !pathMatcher.match("/api/user/**", path) &&
-                !pathMatcher.match("/api/admin/**", path) &&
-                pathMatcher.match("/api/**", path);
+        boolean skip = false;
+        for (String pattern : paths) {
+            if (pathMatcher.match(pattern, path)) {
+                skip = true;
+                break;
+            }
+        }
+        log.info("Path: {} - Skip Filter: {}", path, skip);
+        return skip;
     }
 
     private static class MutableHttpServletRequest extends HttpServletRequestWrapper {
