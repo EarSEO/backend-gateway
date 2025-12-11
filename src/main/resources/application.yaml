@@ -85,3 +85,7 @@ springdoc:
 security:
   path:
     public: ${PUBLIC_PATHS:publicpaths}
+    auth: ${AUTH_PATHS:authpaths}
+
+allowed:
+    hosts: ${ALLOWED_HOST:localhost}

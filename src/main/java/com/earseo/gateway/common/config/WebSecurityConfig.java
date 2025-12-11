@@ -1,5 +1,6 @@
 package com.earseo.gateway.common.config;
 
+import com.earseo.gateway.security.SwaggerFilter;
 import com.earseo.gateway.security.jwt.CustomAccessDeniedHandler;
 import com.earseo.gateway.security.jwt.CustomAuthenticationEntryPoint;
 import com.earseo.gateway.security.jwt.JwtAuthenticationFilter;
@@ -29,6 +30,7 @@ public class WebSecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
+    private final SwaggerFilter swaggerFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -39,6 +41,7 @@ public class WebSecurityConfig {
                         sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
+                .addFilterBefore(swaggerFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/api/user/**").hasAnyAuthority("USER", "ADMIN")
