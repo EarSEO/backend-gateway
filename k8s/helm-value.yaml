@@ -1,2 +1,15 @@
 image:
   tag: v0.1.1
+env:
+  MEMBER_URI: "http://backend-member:8080"
+  SIGHT_URI: "http://backend-sight:8080"
+  STORY_URI: "http://backend-story:8080"
+  CORE_URI: "http://backend-core:8080"
+  ROUTE_URI: "http://backend-route:8080"
+  MEMBER_API_PATH: "/api/member/**, /api/user/member/**, /api/admin/member/**"
+  SIGHT_API_PATH: "/api/sight/**, /api/user/sight/**, /api/admin/sight/**"
+  STORY_API_PATH: "/api/story/**, /api/user/story/**, /api/admin/story/**"
+  CORE_API_PATH: "/api/core/**, /api/user/core/**, /api/admin/core/**"
+  ROUTE_API_PATH: "/api/route/**, /api/user/route/**, /api/admin/route/**"
+  PUBLIC_PATHS: "/.well-known/**,/favicon.ico,/error,/swagger-ui/**,/swagger-ui.html,/api-docs/**,/member/api-docs,/sight/api-docs,/story/api-docs,/core/api-docs,/route/api-docs,/actuator/**,/api/**"
+  AUTH_PATHS: "/api/user/**,/api/admin/**"

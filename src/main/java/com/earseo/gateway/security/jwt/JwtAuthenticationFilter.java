@@ -6,8 +6,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,10 +20,13 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import java.io.IOException;
 import java.util.*;
 
-@Slf4j
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+    @Value("${security.path.public}")
+    private String publicPath;
+    @Value("${security.path.auth}")
+    private String authPath;
     private final JwtValidator jwtValidator;
     private final HandlerExceptionResolver resolver;
     private static final AntPathMatcher pathMatcher = new AntPathMatcher();
@@ -69,12 +72,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+    protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
+        String[] publicPaths = publicPath.split(",");
+        String[] authPaths = authPath.split(",");
 
-        return !pathMatcher.match("/api/user/**", path) &&
-                !pathMatcher.match("/api/admin/**", path) &&
-                pathMatcher.match("/api/**", path);
+        for (String pattern : authPaths) {
+            if (pathMatcher.match(pattern, path)) {
+                return false;
+            }
+        }
+
+        for (String pattern : publicPaths) {
+            if (pathMatcher.match(pattern, path)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static class MutableHttpServletRequest extends HttpServletRequestWrapper {

@@ -1,3 +1,91 @@
 spring:
   profiles:
     default: local
+  application:
+    name: backend-gateway
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            - id: backend-member
+              uri: ${MEMBER_URI:http://example.com}
+              predicates:
+                - Path=${MEMBER_API_PATH:/member}
+
+            - id: backend-sight
+              uri: ${SIGHT_URI:http://example.com}
+              predicates:
+                - Path=${SIGHT_API_PATH:/sight}
+
+            - id: backend-story
+              uri: ${STORY_URI:http://example.com}
+              predicates:
+                - Path=${STORY_API_PATH:/story}
+
+            - id: backend-core
+              uri: ${CORE_URI:http://example.com}
+              predicates:
+                - Path=${CORE_API_PATH:/core}
+
+            - id: backend-route
+              uri: ${ROUTE_URI:http://example.com}
+              predicates:
+                - Path=${ROUTE_API_PATH:/route}
+
+            - id: member-openapi
+              uri: ${MEMBER_URI:http://example.com}
+              predicates:
+                - Path=/member/api-docs
+              filters:
+                - RewritePath=/member/api-docs, /api-docs
+
+            - id: sight-openapi
+              uri: ${SIGHT_URI:http://example.com}
+              predicates:
+                - Path=/sight/api-docs
+              filters:
+                - RewritePath=/sight/api-docs, /api-docs
+
+            - id: story-openapi
+              uri: ${STORY_URI:http://example.com}
+              predicates:
+                - Path=/story/api-docs
+              filters:
+                - RewritePath=/story/api-docs, /api-docs
+
+            - id: core-openapi
+              uri: ${CORE_URI:http://example.com}
+              predicates:
+                - Path=/core/api-docs
+              filters:
+                - RewritePath=/core/api-docs, /api-docs
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    use-root-path: true
+    enabled: true
+    path: /swagger-ui.html
+    display-request-duration: true
+    operations-sorter: method
+    tags-sorter: alpha
+    urls:
+      - name: backend-member
+        url: /member/api-docs
+      - name: backend-sight
+        url: /sight/api-docs
+      - name: backend-story
+        url: /story/api-docs
+      - name: backend-core
+        url: /core/api-docs
+      - name: backend-route
+        url: /route/api-docs
+security:
+  path:
+    public: ${PUBLIC_PATHS:publicpaths}
+    auth: ${AUTH_PATHS:authpaths}
+
+allowed:
+    hosts: ${ALLOWED_HOST:localhost}

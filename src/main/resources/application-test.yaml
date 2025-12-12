@@ -1,47 +1,8 @@
 server:
   port: 8080
 
-spring:
-  application:
-    name: backend-gateway
-
-  cloud:
-    gateway:
-      server:
-        webmvc:
-          routes:
-            - id: backend-member
-              uri: http://backend-member:8080
-              predicates:
-                - Path=/api/member/**, /api/user/member/**, /api/admin/member/**
-
-            - id: backend-sight
-              uri: http://backend-sight:8080
-              predicates:
-                - Path=/api/sight/**, /api/user/sight/**, /api/admin/sight/**
-
-            - id: backend-story
-              uri: http://backend-story:8080
-              predicates:
-                - Path=/api/story/**, /api/user/story/**, /api/admin/story/**
-
-            - id: backend-core
-              uri: http://backend-core:8080
-              predicates:
-                - Path=/api/core/**, /api/user/core/**, /api/admin/core/**
-
-            - id: backend-route
-              uri: http://backend-route:8080
-              predicates:
-                - Path=/api/route/**, /api/user/route/**, /api/admin/route/**
-
-            - id: backend-search
-              uri: http://backend-search:8080
-              predicates:
-                - Path=/api/search/**, /api/user/search/**, /api/admin/search/**
-
 jwt:
-  access_secret: AADfaskllew3skllew32dsfasdTG764G2dsfasdTG764GDfaskllew3skllew32dsfasdTG764G2ddskllew32dsfasdTG764G
+  access_secret: ${JWT_SECRET:jwtsecretkeyjwtsecretkeyjwtsecretkeyjwtsecretkeyjwtsecretkeyjwtsecretkey}
 
 management:
   metrics:
