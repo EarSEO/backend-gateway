@@ -60,6 +60,13 @@ spring:
                 - Path=/core/api-docs
               filters:
                 - RewritePath=/core/api-docs, /api-docs
+
+            - id: route-openapi
+              uri: ${ROUTE_URI:http://example.com}
+              predicates:
+                - Path=/route/api-docs
+              filters:
+                - RewritePath=/route/api-docs, /api-docs
 springdoc:
   api-docs:
     enabled: true
